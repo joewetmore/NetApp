@@ -1,0 +1,35 @@
+# Manually installing a SnapCenter agent on Windows
+# first, copy the package repository directory from the SC agent to the host
+"C:\ProgramData\NetApp\SnapCenter\Package Repository\snapcenter_windows_host_plugin.exe" /silent /debuglog"C:\Installdebug.log" /log"C:\temp" BI_SNAPCENTER_PORT=8145 SUITE_INSTALLDIR="C:\Program Files" BI_SERVICEACCOUNT=ssi_sj\ssiexch-mb2.sd.svc BI_SERVICEPWD=****** ISFeatureInstall=SCW,SCE
+# ISFeatureInstall parameters; SCW=core agent,SCE=exchange,SCSQL=sql
+
+
+
+# Manually removing a SnapCenter agent from Windows
+# Delete SnapCenter Plug-in services #
+sc delete SnapManagerCoreService
+sc delete SCWPluginService
+
+sc delete SCEPluginService
+Remove plug-in entrances from Windows registry
+# Remove SMCORE #
+MsiExec.exe /X "{3F29BA2D-F761-4A6C-AC76-EB07B5D1B713}"
+
+# Remove SCW #
+MsiExec.exe /X "{F5E9D4A5-A46D-4DE2-9877-05C5E41A704C}"
+
+# Remove SCE #
+MsiExec.exe /X "{99428729-CCA4-4771-8EA9-08C616F53803}"
+Delete Windows folders related to SnapCenter 
+"C:\Windows\SnapCenter Plug-In"
+"C:\Program Files\NetApp\SnapCenter"  
+Start -> Run -> %temp%
+
+
+# Mapping LUNs
+# Connect to the SVM
+open-smconnection -credential snapcenter -smsbaseurl https://10.1.1.110:8146 -rolename SnapCenterAdmin
+# Map an RDM
+connect-sdstorage -path # -lunpath # -storagesystem san01-svm01 -igroup rcu_generated_alua -rawdevicemapping 
+# Map a cluster disk
+connect-sdstorage -path # -lunpath # -storagesystem san01-svm01 -igroup rcu_generated_alua -shareddisk -resourcegroup
