@@ -9,4 +9,8 @@ New-SdStorage [-Path <String>] -Size <String> -LunPath <String> -StorageSystem <
 [-Igroup <String>] [-InitiatorInfo <HostInitiatorInfo>] [-PortSet <String>] [-AutopickMountPoint] [PartitionStyle <PartitionStyle>] [-ResourceGroup <String>] 
 [-Thin] [-AllocationUnitSize <String>] [-RawDeviceMapping] [-Datastore <String>] [-Session <String>] [-Host <String>] [<CommonParameters>] 
 
+Get-SdStorage [-StorageSystem <String[]>] [-ComputerName <String>] [ExcludeStorageFootprint] [-ExcludeSMB] [-ExcludeSAN] [-GetMirrorInfo] 
+[GetUnmanagedDisks] [-CloneLevel] [-Session <String>] [-Host <String>] [<CommonParameters>] Get-SdStorage [-Path <Object[]>] [-ComputerName <String>] [
+-ExcludeStorageFootprint] [ExcludeSMB] [-ExcludeSAN] [-GetUnmanagedDisks] [-CloneLevel] [-Session <String>] [-Host <String>] [<CommonParameters>] 
+
 
